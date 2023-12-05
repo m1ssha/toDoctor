@@ -1,5 +1,15 @@
 <?php
-// Страница авторизации
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
+    die(header('Location: ../user/profile.php'));
+}
+
+require('../database/config.php');
+
+define('BOT_USERNAME', $BOT_USERNAME);
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +26,8 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="../index.php">toDoctor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -40,14 +50,17 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card mt-5">
-                    <div class="card-body mx-auto text-center">
+    <div class="container bg-dark text-light">
+        <div class="row justify-content-center bg-dark text-light">
+            <div class="col-md-6 bg-dark text-light">
+                <div class="card mt-5 bg-dark text-light">
+                    <div class="card-body mx-auto text-center bg-dark text-light">
                         <h2 class="card-title">Авторизация</h2>
                         <p>Для авторизации, пожалуйста, войдите через Telegram</p>
-                        <!-- Здесь script авторизации от телеграма -->
+                        <script async src="https://telegram.org/js/telegram-widget.js?22"
+                            data-telegram-login="<?= BOT_USERNAME ?>" data-size="large" data-userpic="false" data-radius="20"
+                            data-auth-url="logic/auth.php">
+                        </script>
                     </div>
                 </div>
             </div>

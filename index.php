@@ -12,8 +12,8 @@
 
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body class="bg-dark text-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="">toDoctor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
     </nav>
 
     <div class="container mt-4">
-        <div class="jumbotron">
+        <div class="jumbotron bg-dark text-light">
             <h1 class="display-4"><strong>toDoctor</strong> — сервис для записи к врачу</h1>
             <p class="lead">Быстрая и удобная запись к врачу на ближайшую свободную дату.</p>
             <hr class="my-4">
