@@ -49,9 +49,9 @@ if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
         <div class="jumbotron bg-dark text-light">
             <?php if (!$isUserLoggedIn) : ?>
                 <h1 class="display-4"><strong>toDoctor</strong> — сервис для записи к врачу</h1>
-                <p class="lead">Быстрая и удобная запись к врачу на ближайшую свободную дату.</p>
-                <hr class="my-4">
-                <p>Для записи к врачу требуется авторизоваться:</p>
+                <p class="lead">Быстрая и удобная запись к врачу</p>
+                <hr class="my-1">
+                <p class="lead">Для записи к врачу требуется авторизоваться:</p>
                 <a class="btn btn-primary btn-lg" href="auth/login.php" role="button">Авторизоваться</a>
             <?php endif; ?>
             <?php if ($isUserLoggedIn) : ?>
