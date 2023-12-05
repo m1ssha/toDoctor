@@ -10,21 +10,14 @@ if (!isset($_SESSION['logged-in'])) {
 
 require('../database/database.php');
 
-$user_data = $db->Select(
-    "SELECT *
-        FROM `users`
-            WHERE `telegram_id` = :id",
-    [
-        'id' => $_SESSION['telegram_id']
-    ]
-);
+$user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id",['id' => $_SESSION['telegram_id']]);
 
-if ($user_data[0]['is_admin'] != 1) {
+if ($user[0]['is_admin'] != 1) {
     header('Location: ../user/profile.php');
     exit();
 }
 
-$firstName = $user_data[0]['first_name'];
+$firstName = $user[0]['first_name'];
 
 ?>
 <!DOCTYPE html>
@@ -33,7 +26,7 @@ $firstName = $user_data[0]['first_name'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Панель администрирования</title>
+    <title>Управление</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -65,6 +58,19 @@ $firstName = $user_data[0]['first_name'];
             </ul>
         </div>
     </nav>
+
+    <div class="container">
+        <div class="jumbotron bg-dark text-light">
+            <h1>Панель администратора</h1>
+            <p class="lead">Добро пожаловать, <strong><?php echo $firstName; ?></strong>!</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="users.php">Пользователи</a>
+                <a class="btn btn-primary btn-lg" href="doctors.php">Врачи</a>
+                <a class="btn btn-primary btn-lg" href="enrolls.php">Записи</a>
+            </p>
+        </div>
+    </div>
+    
 </body>
 
 </html>

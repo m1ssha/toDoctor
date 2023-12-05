@@ -1,3 +1,15 @@
+<?php
+session_start();
+$isUserLoggedIn = isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE;
+
+if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
+    require('database/database.php');
+    $user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id",['id' => $_SESSION['telegram_id']]);
+    
+    $firstName = $user[0]['first_name'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -35,11 +47,21 @@
 
     <div class="container mt-4">
         <div class="jumbotron bg-dark text-light">
-            <h1 class="display-4"><strong>toDoctor</strong> — сервис для записи к врачу</h1>
-            <p class="lead">Быстрая и удобная запись к врачу на ближайшую свободную дату.</p>
-            <hr class="my-4">
-            <p>Для записи к врачу требуется авторизоваться:</p>
-            <a class="btn btn-primary btn-lg" href="auth/login.php" role="button">Авторизоваться</a>
+            <?php if (!$isUserLoggedIn) : ?>
+                <h1 class="display-4"><strong>toDoctor</strong> — сервис для записи к врачу</h1>
+                <p class="lead">Быстрая и удобная запись к врачу на ближайшую свободную дату.</p>
+                <hr class="my-4">
+                <p>Для записи к врачу требуется авторизоваться:</p>
+                <a class="btn btn-primary btn-lg" href="auth/login.php" role="button">Авторизоваться</a>
+            <?php endif; ?>
+            <?php if ($isUserLoggedIn) : ?>
+                <h3>И снова здравствуйте, <strong><?php echo $firstName; ?></strong>!</h3>
+                <p class="lead"><strong>toDoctor</strong> — сервис для быстрой удобной записи к врачу "в один клик"</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="enroll/doctors.php">Записаться</a>
+                    <a class="btn btn-primary btn-lg" href="user/profile.php">Профиль</a>
+                </p>
+            <?php endif; ?>
         </div>
     </div>
 </body>
