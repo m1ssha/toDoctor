@@ -5,7 +5,26 @@ ini_set('display_errors', '1');
 
 require('../database/database.php');
 
-$data = $db->Select("SELECT id, name, specialization FROM doctors");
+if (!isset($_SESSION['logged-in'])) {
+    header('Location: ../auth/login.php');
+    exit();
+}
+
+if (!isset($_GET['doctor_id'])) {
+    header('Location: ../error.php');
+    exit();
+}
+
+$selectedDoctorId = $_GET['doctor_id'];
+
+$doctorInfo = $db->Select("SELECT id, name, specialization FROM doctors WHERE id = :id", [':id' => $selectedDoctorId]);
+if (empty($doctorInfo)) {
+    header('Location: ../error.php');
+    exit();
+}
+
+$selectedDoctorName = $doctorInfo[0]['name'];
+$selectedDoctorSpecialization = $doctorInfo[0]['specialization'];
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +33,11 @@ $data = $db->Select("SELECT id, name, specialization FROM doctors");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Записаться</title>
+    <title>Успех</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </head>
 
 <body class="bg-dark text-light">
@@ -37,39 +55,17 @@ $data = $db->Select("SELECT id, name, specialization FROM doctors");
                     <a class="nav-link" href="../user/profile.php">Профиль</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Записаться</a>
+                    <a class="nav-link" href="doctors.php">Записаться</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container mt-5 bg-dark text-light">
-        <h2>Запись к врачу</h2>
-        <table class="table bg-dark text-light">
-            <thead>
-                <tr>
-                    <th scope="col">Врач</th>
-                    <th scope="col">Специализация</th>
-                    <th scope="col">Записаться</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($data as $doctor) : ?>
-                        <tr>
-                            <th scope="row"><?php echo $doctor['name']; ?></th>
-                            <th scope="row"><?php echo $doctor['specialization']; ?></th>
-                            <td>
-                                <form action="enroll.php" method="get">
-                                    <input type="hidden" name="doctor_id" value="<?php echo $doctor['id']; ?>">
-                                    <button type="submit" class="btn btn-primary">Записаться</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-            </tbody>
-        </table>
+    <div class="container mt-4">
+        <h2>Успешное бронирование</h2>
+        <p>Вы успешно записаны к врачу <?php echo $selectedDoctorName; ?> (<?php echo $selectedDoctorSpecialization; ?>).</p>
+        <a href="../index.php" class="btn btn-primary">На главную</a>
     </div>
-
 </body>
 
 </html>
