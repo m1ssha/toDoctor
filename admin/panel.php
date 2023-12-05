@@ -67,6 +67,7 @@ $firstName = $user[0]['first_name'];
                 <a class="btn btn-primary btn-lg" href="users.php">Пользователи</a>
                 <a class="btn btn-primary btn-lg" href="doctors.php">Врачи</a>
                 <a class="btn btn-primary btn-lg" href="enrolls.php">Записи</a>
+                <a class="btn btn-primary btn-lg" href="numbers.php">Номера</a>
             </p>
         </div>
     </div>

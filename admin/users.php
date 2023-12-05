@@ -17,8 +17,6 @@ if ($user[0]['is_admin'] != 1) {
     exit();
 }
 
-$firstName = $user[0]['first_name'];
-
 $users = $db->Select("SELECT * FROM `users`");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleAdmin'])) {

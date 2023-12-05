@@ -17,9 +17,23 @@ if ($user[0]['is_admin'] != 1) {
     exit();
 }
 
-$enrolls = $db->Select(
-    "SELECT * FROM `enrolls`"
-);
+$numbers = $db->Select("SELECT * FROM `numbers`");
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['add_number']) && is_numeric($_POST['new_number'])) {
+        $newNumber = $_POST['new_number'];
+
+        $db->Insert("INSERT INTO `numbers` (`number`) VALUES (:number)", ['number' => $newNumber]);
+
+        header('Location: numbers.php');
+        exit();
+    } elseif (isset($_POST['delete_number'])) {
+        $numberId = $_POST['number_id'];
+        $db->Insert("DELETE FROM `numbers` WHERE `id` = :id", ['id' => $numberId]);
+        header('Location: numbers.php');
+        exit();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -65,32 +79,43 @@ $enrolls = $db->Select(
     </div>
 
     <div class="container bg-dark text-light">
-        <h2>Все записи</h2>
-        <?php if (!empty($enrolls)) : ?>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="new_number">Добавить номер:</label>
+                <input type="text" class="form-control" id="new_number" name="new_number" placeholder="Введите номер" required>
+            </div>
+            <button type="submit" class="btn btn-primary" name="add_number">Добавить</button>
+        </form>
+    </div>
+
+    <div class="container bg-dark text-light mt-3">
+        <h2>Все номера</h2>
+        <?php if (!empty($numbers)) : ?>
             <table class="table bg-dark text-light">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Пользователь</th>
-                        <th scope="col">Врач</th>
                         <th scope="col">Номер</th>
-                        <th scope="col">Дата записи</th>
+                        <th scope="col">Удалить</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($enrolls as $enroll) : ?>
+                    <?php foreach ($numbers as $number) : ?>
                         <tr>
-                            <th scope="row"><?php echo $enroll['id']; ?></th>
-                            <td><?php echo $enroll['user_id']; ?></td>
-                            <td><?php echo $enroll['doctor_name']; ?></td>
-                            <td><?php echo $enroll['number']; ?></td>
-                            <td><?php echo $enroll['enroll_time']; ?></td>
+                            <th scope="row"><?php echo $number['id']; ?></th>
+                            <td><?php echo $number['number']; ?></td>
+                            <td>
+                                <form action="" method="post">
+                                    <input type="hidden" name="number_id" value="<?php echo $number['id']; ?>">
+                                    <button type="submit" class="btn btn-danger" name="delete_number">Удалить</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else : ?>
-            <p>У вас пока нет записей.</p>
+            <p>В базе данных не содержится информации о номерах</p>
         <?php endif; ?>
     </div>
 
