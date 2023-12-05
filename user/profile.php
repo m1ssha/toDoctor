@@ -15,6 +15,8 @@ $telegramID = $user[0]['telegram_id'];
 $telegramUsername = $user[0]['telegram_username'];
 $userID = $user[0]['id'];
 $isAdmin = ($user[0]['is_admin'] == 1);
+
+$enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_id' => $telegramID]);
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +68,30 @@ $isAdmin = ($user[0]['is_admin'] == 1);
                 <a href="../auth/logic/logout.php" class="btn btn-danger">Выйти из аккаунта</a>
             </p>
         </div>
+    </div>
+
+    <div class="container bg-dark text-light">
+        <h2>История</h2>
+        <?php if (!empty($enrolls)) : ?>
+            <table class="table bg-dark text-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Врач</th>
+                        <th scope="col">Номер в очереди</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($enrolls as $enroll) : ?>
+                        <tr>
+                            <th><?php echo $enroll['doctor_name']; ?></th>
+                            <td><?php echo $enroll['number']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p class="lead"><strong>У вас пока нет записей</strong></p>
+        <?php endif; ?>
     </div>
 
 </body>
