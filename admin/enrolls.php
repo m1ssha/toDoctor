@@ -19,6 +19,9 @@ if ($user[0]['is_admin'] != 1) {
 
 $firstName = $user[0]['first_name'];
 
+$enrolls = $db->Select(
+    "SELECT * FROM `enrolls`"
+);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -62,6 +65,37 @@ $firstName = $user[0]['first_name'];
     <div class="container mt-3">
         <p><a href="panel.php">Вернуться</a></p>
     </div>
+
+    <div class="container bg-dark text-light">
+        <h2>Все записи</h2>
+        <?php if (!empty($enrolls)) : ?>
+            <table class="table bg-dark text-light">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Пользователь</th>
+                        <th scope="col">Врач</th>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Дата записи</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($enrolls as $enroll) : ?>
+                        <tr>
+                            <th scope="row"><?php echo $enroll['id']; ?></th>
+                            <td><?php echo $enroll['user_id']; ?></td>
+                            <td><?php echo $enroll['doctor_name']; ?></td>
+                            <td><?php echo $enroll['number']; ?></td>
+                            <td><?php echo $enroll['enroll_time']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>У вас пока нет заказов.</p>
+        <?php endif; ?>
+    </div>
+
 </body>
 
 </html>

@@ -50,7 +50,7 @@ function userAuthentication($db, $auth_data) {
                 'first_name'        => $auth_data['first_name'],
                 'last_name'         => isset($auth_data['last_name']) ? $auth_data['last_name'] : null,
                 'telegram_id'       => $auth_data['id'],
-                'telegram_username' => isset($auth_data['username']) ? $auth_data['photo_url'] : null,
+                'telegram_username' => isset($auth_data['username']) ? $auth_data['username'] : null,
                 'profile_picture'   => isset($auth_data['photo_url']) ? $auth_data['photo_url'] : null,
                 'auth_date'         => isset($auth_data['auth_date']) ? $auth_data['auth_date'] : null
             ]

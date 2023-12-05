@@ -79,6 +79,7 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
                     <th scope="col">Врач</th>
                     <th scope="col">Специализация</th>
                     <th scope="col">Номер в очереди</th>
+                    <th scope="col">Время записи</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,12 +92,13 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
                         <td><?php echo $enroll['doctor_name']; ?></td>
                         <td><?php echo $specialization; ?></td>
                         <td><?php echo $enroll['number']; ?></td>
+                        <td><?php echo $enroll['enroll_time']?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else : ?>
-        <p class="lead"><strong>У вас пока нет записей</strong></p>
+        <p class="lead"><strong>В базе данных не содержится данных о записи</strong></p>
     <?php endif; ?>
 </div>
 

@@ -19,6 +19,31 @@ if ($user[0]['is_admin'] != 1) {
 
 $firstName = $user[0]['first_name'];
 
+$users = $db->Select("SELECT * FROM `users`");
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleAdmin'])) {
+    $user_id = $_POST['user_id'];
+
+    if ($user[0]['id'] != $user_id) {
+        $is_admin = $db->Select("SELECT `is_admin` FROM `users` WHERE `id` = :id", ['id' => $user_id])[0]['is_admin'];
+
+        $new_is_admin = ($is_admin == 1) ? 0 : 1;
+
+        $db->Update("UPDATE `users` SET `is_admin` = :is_admin WHERE `id` = :id", ['is_admin' => $new_is_admin, 'id' => $user_id]);
+
+        header('Location: users.php');
+        exit();
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
+    $user_id = $_POST['user_id'];
+
+    $db->Update("DELETE FROM users WHERE id = :id ", ['id' => $user_id]);
+
+    header('Location: users.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -62,6 +87,49 @@ $firstName = $user[0]['first_name'];
     <div class="container mt-3">
         <p><a href="panel.php">Вернуться</a></p>
     </div>
+
+    <div class="container mt-1 bg-dark text-light">
+        <h2>Все пользователи</h2>
+        <?php if (!empty($users)) : ?>
+            <table class="table bg-dark text-light">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Telegram ID</th>
+                        <th scope="col">Имя пользователя</th>
+                        <th scope="col">Админ</th>
+                        <th scope="col">Удалить</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($users as $user) : ?>
+                        <tr>
+                            <th scope="row"><?php echo $user['id']; ?></th>
+                            <th scope="row"><?php echo $user['telegram_id']; ?></th>
+                            <td scope="row"><?php echo $user['first_name']; ?></td>
+                            <td scope="row">
+                                <form method="post" action="">
+                                    <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                    <button type="submit" name="toggleAdmin" class="btn btn-sm btn-<?php echo ($user['is_admin'] == 1) ? 'danger' : 'success'; ?>">
+                                        <?php echo ($user['is_admin'] == 1) ? 'Снять администратора' : 'Назначить администратором'; ?>
+                                    </button>
+                                </form>
+                            <td scope="row">
+                                <form method="post" action="">
+                                    <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                    <button type="submit" name="deleteUser" class="btn btn-sm btn-danger">Удалить</button>
+                                </form>
+                            </td>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>В системе не зарегистрированы пользователи</p>
+        <?php endif; ?>
+    </div>
+
 </body>
 
 </html>
