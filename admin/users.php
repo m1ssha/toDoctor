@@ -37,10 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleAdmin'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
     $user_id = $_POST['user_id'];
 
-    $db->Update("DELETE FROM users WHERE id = :id ", ['id' => $user_id]);
-
-    header('Location: users.php');
-    exit();
+    if ($user[0]['id'] != $user_id) {
+        $db->Update("DELETE FROM users WHERE id = :id ", ['id' => $user_id]);
+        header('Location: users.php');
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
