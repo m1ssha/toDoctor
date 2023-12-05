@@ -71,28 +71,34 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
     </div>
 
     <div class="container bg-dark text-light">
-        <h2>История</h2>
-        <?php if (!empty($enrolls)) : ?>
-            <table class="table bg-dark text-light">
-                <thead>
+    <h2>История</h2>
+    <?php if (!empty($enrolls)) : ?>
+        <table class="table bg-dark text-light">
+            <thead>
+                <tr>
+                    <th scope="col">Врач</th>
+                    <th scope="col">Специализация</th>
+                    <th scope="col">Номер в очереди</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($enrolls as $enroll) : ?>
+                    <?php
+                    $doctorInfo = $db->Select("SELECT * FROM `doctors` WHERE `name` = :doctor_name", ['doctor_name' => $enroll['doctor_name']]);
+                    $specialization = (!empty($doctorInfo) ? $doctorInfo[0]['specialization'] : 'N/A');
+                    ?>
                     <tr>
-                        <th scope="col">Врач</th>
-                        <th scope="col">Номер в очереди</th>
+                        <td><?php echo $enroll['doctor_name']; ?></td>
+                        <td><?php echo $specialization; ?></td>
+                        <td><?php echo $enroll['number']; ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($enrolls as $enroll) : ?>
-                        <tr>
-                            <th><?php echo $enroll['doctor_name']; ?></th>
-                            <td><?php echo $enroll['number']; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else : ?>
-            <p class="lead"><strong>У вас пока нет записей</strong></p>
-        <?php endif; ?>
-    </div>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p class="lead"><strong>У вас пока нет записей</strong></p>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
