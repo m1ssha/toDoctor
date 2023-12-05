@@ -103,7 +103,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                     <div class="form-group">
                         <select class="form-control" id="numberSelect" name="number" required>
                             <?php foreach ($numbersData as $number): ?>
-                                <option value="<?php echo $number['id']; ?>" <?php echo in_array($number['number'], $availableSeatNumbers) ? '' : 'disabled'; ?>>
+                                <option value="<?php echo $number['number']; ?>" <?php echo in_array($number['number'], $availableSeatNumbers) ? '' : 'disabled'; ?>>
                                     <?php echo $number['number']; ?>
                                 </option>
                             <?php endforeach; ?>
