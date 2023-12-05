@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
             color: white;
         }
     </style>
-    
+
 </head>
 
 <body class="bg-dark text-light">
@@ -129,8 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                         <th scope="col">#</th>
                         <th scope="col">Врач</th>
                         <th scope="col">Специализация</th>
-                        <th scope="col">Удалить</th>
                         <th scope="col">Редактировать</th>
+                        <th scope="col">Удалить</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -140,13 +140,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                             <td><?php echo $doctor['name']; ?></td>
                             <td><?php echo $doctor['specialization']; ?></td>
                             <td>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
+                            </td>
+                            <td>
                                 <form method="post" action="">
                                     <input type="hidden" name="doctor_id" value="<?php echo $doctor['id']; ?>">
                                     <button type="submit" class="btn btn-danger" name="delete_doctor">Удалить</button>
                                 </form>
-                            </td>
-                            <td>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
                             </td>
                         </tr>
                         <div class="modal fade" id="editModal<?php echo $doctor['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?php echo $doctor['id']; ?>" aria-hidden="true">
