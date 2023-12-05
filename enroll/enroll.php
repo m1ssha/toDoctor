@@ -98,7 +98,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
             <?php if (empty($availableSeatNumbers)): ?>
                 <h2>Все места к врачу <strong><?php echo $selectedDoctorName; ?></strong> забронированы, приносим свои извинения</h2>
             <?php else: ?>
-                <h2>Выберите место для врача "<?php echo $selectedDoctorName; ?>"</h2>
+                <h2>Выберите свободное место к врачу <?php echo $selectedDoctorName; ?></h2>
                 <form id="bookingForm" method="post" action="">
                     <div class="form-group">
                         <select class="form-control" id="numberSelect" name="number" required>
