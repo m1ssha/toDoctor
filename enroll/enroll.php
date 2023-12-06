@@ -99,7 +99,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                 <h2>Все места к врачу <strong><?php echo $selectedDoctorName; ?></strong> забронированы, приносим свои извинения</h2>
             <?php else: ?>
                 <h2>Выберите свободное место к врачу <?php echo $selectedDoctorName; ?></h2>
-                <form id="bookingForm" method="post" action="">
+                <form id="enrollForm" method="post" action="">
                     <div class="form-group">
                         <select class="form-control" id="numberSelect" name="number" required>
                             <?php foreach ($numbersData as $number): ?>
