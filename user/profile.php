@@ -17,6 +17,15 @@ $userID = $user[0]['id'];
 $isAdmin = ($user[0]['is_admin'] == 1);
 
 $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_id' => $telegramID]);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEnroll'])) {
+    $enroll_id = $_POST['enroll_id'];
+
+    $db->Update("DELETE FROM enrolls WHERE id = :id ", ['id' => $enroll_id]);
+    header('Location: profile.php');
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -53,11 +62,6 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
                 <li class="nav-item">
                     <a class="nav-link" href="../enroll/doctors.php">Записаться</a>
                 </li>
-                <?php if ($isAdmin) : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../admin/panel.php">Панель администрирования</a>
-                    </li>
-                <?php endif; ?>
             </ul>
         </div>
     </nav>
@@ -68,6 +72,9 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
             <p>Здесь вы можете посмотреть вашу историю посещений врачей</p>
             <p>
                 <a href="../enroll/doctors.php" class="btn btn-outline-light">Записаться к врачу</a>
+                <?php if ($isAdmin) : ?>
+                    <a class="btn btn-outline-light" href="../admin/panel.php">Панель администрирования</a>
+                <?php endif; ?>
             </p>
         </div>
     </div>
@@ -75,13 +82,14 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
     <div class="container bg-dark text-light">
     <h2>История</h2>
     <?php if (!empty($enrolls)) : ?>
-        <table class="table table-dark table-bordered table-hover">
+        <table class="table table-dark table-hover">
             <thead>
                 <tr>
                     <th scope="col">Врач</th>
                     <th scope="col">Специализация</th>
                     <th scope="col">Номер в очереди</th>
                     <th scope="col">Время записи</th>
+                    <th scope="col">Отмена</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,6 +103,12 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
                         <td><?php echo $specialization; ?></td>
                         <td><?php echo $enroll['number']; ?></td>
                         <td><?php echo $enroll['enroll_time']?></td>
+                        <td>
+                            <form method="post" action="">
+                                <input type="hidden" name="enroll_id" value="<?php echo $enroll['id']; ?>">
+                                <button type="submit" name="deleteEnroll" class="btn btn-sm btn-outline-danger">Отменить запись</button>
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
