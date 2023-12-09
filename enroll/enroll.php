@@ -96,7 +96,10 @@ $numbersData = $db->Select("SELECT * FROM numbers");
         <a href="doctors.php">Вернуться</a>
         <?php if (!empty($selectedDoctorName)): ?>
             <?php if (empty($availableSeatNumbers)): ?>
-                <h2>Все места к врачу <strong><?php echo $selectedDoctorName; ?></strong> забронированы, приносим свои извинения</h2>
+                <div class="container mt-2">
+                    <h2>Уважаемый пользователь!</h2>
+                    <p>Все места к врачу <strong><?php echo $selectedDoctorName; ?></strong> забронированы, приносим свои извинения</p>
+                </div>
             <?php else: ?>
                 <h2>Выберите свободное место к врачу <?php echo $selectedDoctorName; ?></h2>
                 <form id="enrollForm" method="post" action="">

@@ -45,7 +45,7 @@ $data = $db->Select("SELECT id, name, specialization FROM doctors");
 
     <div class="container mt-5 bg-dark text-light">
         <h2>Запись к врачу</h2>
-        <table class="table bg-dark text-light">
+        <table class="table table-dark table-borderless table-hover">
             <thead>
                 <tr>
                     <th scope="col">Врач</th>
