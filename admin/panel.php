@@ -75,6 +75,15 @@ $firstName = $user[0]['first_name'];
         </div>
     </div>
     
+    <footer class="bg-dark text-light mt-4 fixed-bottom">
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p>Система <strong>toDoctor</strong> разработана в рамках курсовой работы по основам программирования<br>&copy; <?php echo date("Y"); ?> MN.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
 </body>
-
 </html>
