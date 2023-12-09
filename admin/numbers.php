@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container bg-dark text-light mt-3">
         <h2>Все номера</h2>
         <?php if (!empty($numbers)) : ?>
-            <table class="table bg-dark text-light">
+            <table class="table table-dark table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

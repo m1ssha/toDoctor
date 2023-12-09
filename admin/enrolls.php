@@ -70,7 +70,7 @@ $enrolls = $db->Select(
     <div class="container bg-dark text-light">
         <h2>Все записи</h2>
         <?php if (!empty($enrolls)) : ?>
-            <table class="table table-dark table-striped table-hover table-borderless table-sm">
+            <table class="table table-dark table-striped table-hover table-borderless table-sm table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

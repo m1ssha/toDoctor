@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
     <div class="container bg-dark text-light mt-3">
         <h2>Врачи</h2>
         <?php if (!empty($doctors)) : ?>
-            <table class="table bg-dark text-light">
+            <table class="table table-dark table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

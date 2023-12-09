@@ -75,7 +75,7 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
     <div class="container bg-dark text-light">
     <h2>История</h2>
     <?php if (!empty($enrolls)) : ?>
-        <table class="table table-dark table-striped table-bordered">
+        <table class="table table-dark table-bordered table-hover">
             <thead>
                 <tr>
                     <th scope="col">Врач</th>

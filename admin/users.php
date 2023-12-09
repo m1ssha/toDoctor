@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
     <div class="container mt-1 bg-dark text-light">
         <h2>Все пользователи</h2>
         <?php if (!empty($users)) : ?>
-            <table class="table table-dark table-striped table-hover table-borderless table-sm">
+            <table class="table table-dark table-striped table-hover table-borderless table-sm table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
