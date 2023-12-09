@@ -3,8 +3,17 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+require('../database/database.php');
+
+$user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id",['id' => $_SESSION['telegram_id']]);
+
 if (!isset($_SESSION['logged-in'])) {
     header('Location: ../auth/login.php');
+    exit();
+}
+
+if ($user[0]['is_admin'] != 1) {
+    header('Location: ../user/profile.php');
     exit();
 }
 ?>

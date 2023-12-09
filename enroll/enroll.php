@@ -116,7 +116,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                 <h2>Выберите свободное место для записи</h2>
                 <form id="enrollForm" method="post" action="">
                     <div class="form-group">
-                        <select class="form-control" id="numberSelect" name="number" required>
+                        <select class="form-control form-control-lg" id="numberSelect" name="number" required>
                             <?php foreach ($numbersData as $number): ?>
                                 <option value="<?php echo $number['number']; ?>" <?php echo in_array($number['number'], $availableSeatNumbers) ? '' : 'disabled'; ?>>
                                     <?php echo $number['number']; ?>
@@ -124,7 +124,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-outline-light">Записаться к врачу</button>
+                    <button type="submit" class="btn btn-outline-light mt-2">Записаться к врачу</button>
                 </form>
             <?php endif; ?>
         <?php else: ?>
