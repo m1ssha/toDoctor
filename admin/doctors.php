@@ -176,13 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                             </td>
                         </tr>
                         <div class="modal fade" id="editModal<?php echo $doctor['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?php echo $doctor['id']; ?>" aria-hidden="true">
-                            <div class="modal-dialog bg-dark text-light" role="document">
+                            <div class="modal-dialog bg-dark text-ligh modal-lg" role="document">
                                 <div class="modal-content bg-dark text-light">
                                     <div class="modal-header bg-dark text-light">
                                         <h5 class="modal-title bg-dark text-light" id="editModalLabel<?php echo $doctor['id']; ?>">Редактировать врача</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <button type="button" class="btn btn-outline-warning close mt-2" data-dismiss="modal" aria-label="Close">Закрыть</button>
                                     </div>
                                     <div class="modal-body bg-dark text-light">
                                         <form method="post" action="" enctype="multipart/form-data">
@@ -197,9 +195,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                                             </div>
                                             <div class="form-group">
                                                 <label for="edit_description">Описание:</label>
-                                                <textarea class="form-control" id="edit_description" name="edit_description" rows="3" required><?php echo $doctor['description']; ?></textarea>
+                                                <textarea class="form-control" id="edit_description" name="edit_description" rows="7" required><?php echo $doctor['description']; ?></textarea>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" name="edit_doctor">Сохранить изменения</button>
+                                            <button type="submit" class="btn btn-outline-primary mt-2" name="edit_doctor">Сохранить изменения</button>
                                         </form>
                                     </div>
                                 </div>
