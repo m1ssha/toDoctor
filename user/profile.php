@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEnroll'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
-<body class="bg-dark text-light">
+<body class="bg-dark text-light d-flex flex-column h-100">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="../index.php">
@@ -122,26 +122,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEnroll'])) {
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <?php else : ?>
-        <p class="lead"><strong>В базе данных не содержится данных о записи</strong></p>
-    <?php endif; ?>
-</div>
+        <?php else : ?>
+            <p class="lead"><strong>В базе данных не содержится данных о записи</strong></p>
+        <?php endif; ?>
+    </div>
 
     <div class="container mt-2">
         <p>
             <a class="btn btn-outline-danger" href="../auth/logic/logout.php">Выйти из аккаунта</a>
         </p>
     </div>
-
-    <footer class="bg-dark text-light mt-4 fixed-bottom">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>Система <strong>toDoctor</strong> разработана в рамках курсовой работы по основам программирования<br>&copy; <?php echo date("Y"); ?> MN.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
 </body>
 </html>

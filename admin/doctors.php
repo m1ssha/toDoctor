@@ -22,6 +22,7 @@ $doctors = $db->Select("SELECT * FROM `doctors`");
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_doctor'])) {
     $name = $_POST['name'];
     $specialization = $_POST['specialization'];
+    $description = $_POST['description'];
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $allowed_formats = ['image/bmp', 'image/jpeg', 'image/png'];
@@ -37,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_doctor'])) {
         $image = null;
     }
 
-    $db->Insert("INSERT INTO `doctors` (`name`, `specialization`, `image`) VALUES (:name, :specialization, :image)", [
+    $db->Insert("INSERT INTO `doctors` (`name`, `specialization`, `image`, `description`) VALUES (:name, :specialization, :image, :description)", [
         'name' => $name,
         'specialization' => $specialization,
-        'image' => $image
+        'image' => $image,
+        'description' => $description
     ]);
 
     header('Location: doctors.php');
@@ -60,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
     $doctorId = $_POST['doctor_id'];
     $editName = $_POST['edit_name'];
     $editSpecialization = $_POST['edit_specialization'];
-    $editImage = isset($_FILES['edit_image']) ? file_get_contents($_FILES['edit_image']['tmp_name']) : null;
+    $editDescription = $_POST['edit_description'];
 
-    $db->Update("UPDATE `doctors` SET `name` = :name, `specialization` = :specialization, `image` = :image WHERE `id` = :id", [
+    $db->Update("UPDATE `doctors` SET `name` = :name, `specialization` = :specialization, `description` = :description WHERE `id` = :id", [
         'name' => $editName,
         'specialization' => $editSpecialization,
-        'image' => $editImage,
+        'description' => $editDescription,
         'id' => $doctorId
     ]);
 
@@ -133,6 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                 <input type="text" class="form-control" id="specialization" name="specialization" required>
             </div>
             <div class="form-group">
+                <label for="description">О себе:</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
                 <label for="image">Фотография:</label>
                 <input type="file" class="form-control" id="image" name="image">
             </div>
@@ -149,6 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                         <th scope="col">Врач</th>
                         <th scope="col">Специализация</th>
                         <th scope="col">Редактировать</th>
+                        <th scope="col">О себе</th>
                         <th scope="col">Удалить</th>
                     </tr>
                 </thead>
@@ -160,6 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                             <td>
                                 <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
                             </td>
+                            <td><?php echo $doctor['description']; ?></td>
                             <td>
                                 <form method="post" action="">
                                     <input type="hidden" name="doctor_id" value="<?php echo $doctor['id']; ?>">
@@ -188,8 +196,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                                                 <input type="text" class="form-control" id="edit_specialization" name="edit_specialization" value="<?php echo $doctor['specialization']; ?>" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="edit_image">Фотография:</label>
-                                                <input type="file" class="form-control" id="edit_image" name="edit_image">
+                                                <label for="edit_description">Описание:</label>
+                                                <textarea class="form-control" id="edit_description" name="edit_description" rows="3" required><?php echo $doctor['description']; ?></textarea>
                                             </div>
                                             <button type="submit" class="btn btn-primary" name="edit_doctor">Сохранить изменения</button>
                                         </form>
@@ -204,15 +212,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
             <p>В базе данных не содержится информации о врачах</p>
         <?php endif; ?>
     </div>
-
-    <footer class="bg-dark text-light mt-4 fixed-bottom">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>Система <strong>toDoctor</strong> разработана в рамках курсовой работы по основам программирования<br>&copy; <?php echo date("Y"); ?> MN.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

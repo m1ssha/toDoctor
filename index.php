@@ -59,7 +59,7 @@ if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
                 <a class="btn btn-outline-light btn-lg" href="auth/login.php" role="button">Авторизоваться</a>
             <?php endif; ?>
             <?php if ($isUserLoggedIn) : ?>
-                <h3>И снова здравствуйте, <strong><?php echo $firstName; ?></strong>!</h3>
+                <h3 class="display-3">И снова здравствуйте, <strong><?php echo $firstName; ?></strong>!</h3>
                 <p class="lead"><strong>toDoctor</strong> — сервис для быстрой удобной записи к врачу "в один клик"</p>
                 <p class="lead">
                     <a class="btn btn-outline-light btn-lg" href="enroll/doctors.php">Записаться</a>
@@ -68,8 +68,9 @@ if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
             <?php endif; ?>
         </div>
     </div>
+</body>
 
-    <footer class="bg-dark text-light mt-4 fixed-bottom">
+<footer class="bg-dark text-light mt-4 fixed-bottom">
         <div class="container py-3">
             <div class="row">
                 <div class="col-12 text-center">
@@ -77,7 +78,6 @@ if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
                 </div>
             </div>
         </div>
-    </footer>
-</body>
+</footer>
 
 </html>

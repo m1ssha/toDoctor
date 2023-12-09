@@ -72,16 +72,5 @@ $selectedDoctorSpecialization = $doctorInfo[0]['specialization'];
         <p class="lead">Подробнее о записи вы можете узнать в своём <a href="../user/profile.php"><strong>профиле</strong></a>.</p>
         <a href="../index.php" class="btn btn-outline-light">На главную</a>
     </div>
-
-    <footer class="bg-dark text-light mt-4 fixed-bottom">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>Система <strong>toDoctor</strong> разработана в рамках курсовой работы по основам программирования<br>&copy; <?php echo date("Y"); ?> MN.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
 </body>
 </html>

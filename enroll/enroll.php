@@ -111,7 +111,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                         <img src="data:image/jpeg;base64,<?php echo base64_encode($doctorInfo[0]['image']); ?>" class="img-fluid" alt="<?php echo $selectedDoctorName; ?>" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <p class="lead mt-2"><strong>Специализация:</strong> <?php echo $doctorInfo[0]['specialization'] ?></p>
-                    <p class="lead mt-2"><strong>О себе:</strong> <?php echo $doctorInfo[0]['description']?></p>
+                    <p class="lead mt-2"><strong>Описание:</strong> <?php echo $doctorInfo[0]['description']?></p>
                 </div>
                 <h2>Выберите свободное место для записи</h2>
                 <form id="enrollForm" method="post" action="">
@@ -131,16 +131,5 @@ $numbersData = $db->Select("SELECT * FROM numbers");
             <h2>Выберите место</h2>
         <?php endif; ?>
     </div>
-
-    <footer class="bg-dark text-light mt-4 fixed-bottom">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>Система <strong>toDoctor</strong> разработана в рамках курсовой работы по основам программирования<br>&copy; <?php echo date("Y"); ?> MN.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
 </body>
 </html>
