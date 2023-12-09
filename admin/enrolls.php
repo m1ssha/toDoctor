@@ -85,7 +85,7 @@ $enrolls = $db->Select("SELECT * FROM `enrolls`");
                                         $buttonClass = ($enroll['status'] == 'Принят') ? 'btn-outline-danger' : 'btn-outline-success';
                                     ?>
                                     <button type="submit" name="toggleStatus" class="btn <?php echo $buttonClass; ?>">
-                                        <?php echo ($enroll['status'] == 'Принят') ? 'Не принят' : 'Принят'; ?>
+                                        <?php echo ($enroll['status'] == 'Принят') ? 'Не принят' : 'Принять'; ?>
                                     </button>
                                 </form>
                             </td>
