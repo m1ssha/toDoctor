@@ -34,7 +34,7 @@ $selectedDoctorSpecialization = $doctorInfo[0]['specialization'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Успешная запись к врачу</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -55,7 +55,7 @@ $selectedDoctorSpecialization = $doctorInfo[0]['specialization'];
                     <a class="nav-link" href="../user/profile.php">Профиль</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="doctors.php">Записаться</a>
+                    <a class="nav-link active" href="doctors.php">Записаться</a>
                 </li>
             </ul>
         </div>
