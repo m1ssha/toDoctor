@@ -17,6 +17,7 @@ $userpic = $user[0]['profile_picture'];
 $userID = $user[0]['id'];
 $isAdmin = ($user[0]['is_admin'] == 1);
 
+
 $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_id' => $telegramID]);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEnroll'])) {
@@ -91,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEnroll'])) {
                     <th scope="col">Специализация</th>
                     <th scope="col">Номер в очереди</th>
                     <th scope="col">Время записи</th>
+                    <th scope="col">Статус</th>
                     <th scope="col">Отмена</th>
                 </tr>
             </thead>
@@ -104,13 +106,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteEnroll'])) {
                         <td><?php echo $enroll['doctor_name']; ?></td>
                         <td><?php echo $specialization; ?></td>
                         <td><?php echo $enroll['number']; ?></td>
-                        <td><?php echo $enroll['enroll_time']?></td>
-                        <td>
-                            <form method="post" action="">
-                                <input type="hidden" name="enroll_id" value="<?php echo $enroll['id']; ?>">
-                                <button type="submit" name="deleteEnroll" class="btn btn-sm btn-outline-danger">Отменить запись</button>
-                            </form>
-                        </td>
+                        <td><?php echo $enroll['enroll_time']; ?></td>
+                        <td><?php echo $enroll['status']; ?></td>
+                        <?php if ($enroll['status'] != 'Принят') :?>
+                            <td>
+                                <form method="post" action="">
+                                    <input type="hidden" name="enroll_id" value="<?php echo $enroll['id']; ?>">
+                                    <button type="submit" name="deleteEnroll" class="btn btn-sm btn-outline-danger">Отменить запись</button>
+                                </form>
+                            </td>
+                        <?php else : ?>
+                            <td>Невозможно отменить запись</td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

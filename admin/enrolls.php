@@ -10,17 +10,27 @@ if (!isset($_SESSION['logged-in'])) {
 
 require('../database/database.php');
 
-$user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id",['id' => $_SESSION['telegram_id']]);
+$user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id", ['id' => $_SESSION['telegram_id']]);
 
 if ($user[0]['is_admin'] != 1) {
     header('Location: ../user/profile.php');
     exit();
 }
 
-$enrolls = $db->Select(
-    "SELECT * FROM `enrolls`"
-);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['toggleStatus'])) {
+        $enrollId = $_POST['enrollId'];
+
+        $db->Update("UPDATE `enrolls` SET `status` = IF(`status` = 'Принят', 'Не принят', 'Принят') WHERE `id` = :enrollId", ['enrollId' => $enrollId]);
+
+        header('Location: enrolls.php');
+        exit();
+    }
+}
+
+$enrolls = $db->Select("SELECT * FROM `enrolls`");
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -33,35 +43,11 @@ $enrolls = $db->Select(
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </head>
 
 <body class="bg-dark text-light">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="../index.php">
-                <img src="../src/image/navbar-logo.png" alt="" width="133" height="35" class="d-inline-block align-text-top">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../user/profile.php">Профиль</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../enroll/doctors.php">Записаться</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link active" href="../admin/panel.php">Панель администрирования</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <!-- ... (your existing navigation bar) -->
     </div>
 
     <div class="container mt-3">
@@ -80,7 +66,8 @@ $enrolls = $db->Select(
                         <th scope="col">Пользователь</th>
                         <th scope="col">Врач</th>
                         <th scope="col">Номер</th>
-                        <th scope="col">Дата записи</th>
+                        <th scope="col">Время изменения</th>
+                        <th scope="col">Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,6 +78,17 @@ $enrolls = $db->Select(
                             <td><?php echo $enroll['doctor_name']; ?></td>
                             <td><?php echo $enroll['number']; ?></td>
                             <td><?php echo $enroll['enroll_time']; ?></td>
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" name="enrollId" value="<?php echo $enroll['id']; ?>">
+                                    <?php
+                                        $buttonClass = ($enroll['status'] == 'Принят') ? 'btn-outline-danger' : 'btn-outline-success';
+                                    ?>
+                                    <button type="submit" name="toggleStatus" class="btn <?php echo $buttonClass; ?>">
+                                        <?php echo ($enroll['status'] == 'Принят') ? 'Не принят' : 'Принят'; ?>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -110,4 +108,5 @@ $enrolls = $db->Select(
         </div>
     </footer>
 </body>
+
 </html>
