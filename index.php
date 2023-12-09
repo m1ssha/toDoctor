@@ -52,14 +52,14 @@ if (isset($_SESSION['logged-in']) && $_SESSION['logged-in'] == TRUE) {
                 <p class="lead">Быстрая и удобная запись к врачу</p>
                 <hr class="my-1">
                 <p class="lead">Для записи к врачу требуется авторизоваться:</p>
-                <a class="btn btn-primary btn-lg" href="auth/login.php" role="button">Авторизоваться</a>
+                <a class="btn btn-outline-light btn-lg" href="auth/login.php" role="button">Авторизоваться</a>
             <?php endif; ?>
             <?php if ($isUserLoggedIn) : ?>
                 <h3>И снова здравствуйте, <strong><?php echo $firstName; ?></strong>!</h3>
                 <p class="lead"><strong>toDoctor</strong> — сервис для быстрой удобной записи к врачу "в один клик"</p>
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="enroll/doctors.php">Записаться</a>
-                    <a class="btn btn-primary btn-lg" href="user/profile.php">Профиль</a>
+                    <a class="btn btn-outline-light btn-lg" href="enroll/doctors.php">Записаться</a>
+                    <a class="btn btn-outline-light btn-lg" href="user/profile.php">Профиль</a>
                 </p>
             <?php endif; ?>
         </div>

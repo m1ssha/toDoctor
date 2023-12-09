@@ -65,7 +65,7 @@ $selectedDoctorSpecialization = $doctorInfo[0]['specialization'];
         <h2>Уважаемый пользователь!</h2>
         <p class="lead">Вы успешно записаны к врачу <strong><?php echo $selectedDoctorName; ?></strong> (<strong><?php echo $selectedDoctorSpecialization; ?></strong>).</p>
         <p class="lead">Подробнее о записи вы можете узнать в своём <a href="../user/profile.php">профиле</a></p>
-        <a href="../index.php" class="btn btn-primary">На главную</a>
+        <a href="../index.php" class="btn btn-outline-light">На главную</a>
     </div>
 </body>
 

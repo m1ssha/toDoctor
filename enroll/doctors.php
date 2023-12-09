@@ -61,7 +61,7 @@ $data = $db->Select("SELECT id, name, specialization FROM doctors");
                             <td>
                                 <form action="enroll.php" method="get">
                                     <input type="hidden" name="doctor_id" value="<?php echo $doctor['id']; ?>">
-                                    <button type="submit" class="btn btn-primary">Записаться</button>
+                                    <button type="submit" class="btn btn-outline-light">Записаться</button>
                                 </form>
                             </td>
                         </tr>

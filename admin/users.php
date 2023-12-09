@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
                             <td scope="row">
                                 <form method="post" action="">
                                     <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                    <button type="submit" name="toggleAdmin" class="btn btn-sm btn-<?php echo ($user['is_admin'] == 1) ? 'danger' : 'success'; ?>">
+                                    <button type="submit" name="toggleAdmin" class="btn btn-sm btn-<?php echo ($user['is_admin'] == 1) ? 'outline-danger' : 'outline-success'; ?>">
                                         <?php echo ($user['is_admin'] == 1) ? 'Снять администратора' : 'Назначить администратором'; ?>
                                     </button>
                                 </form>

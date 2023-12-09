@@ -64,8 +64,7 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
             <h1 class="display-5"><strong><?php echo $firstName ?></strong>, это ваш профиль</h1>
             <p>Здесь вы можете посмотреть вашу историю посещений врачей</p>
             <p>
-                <a href="../enroll/doctors.php" class="btn btn-primary">Записаться к врачу</a>
-                <a href="../auth/logic/logout.php" class="btn btn-danger">Выйти из аккаунта</a>
+                <a href="../enroll/doctors.php" class="btn btn-outline-light">Записаться к врачу</a>
             </p>
         </div>
     </div>
@@ -101,6 +100,12 @@ $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_
         <p class="lead"><strong>В базе данных не содержится данных о записи</strong></p>
     <?php endif; ?>
 </div>
+
+    <div class="container mt-2">
+        <p>
+            <a class="btn btn-outline-danger" href="../auth/logic/logout.php">Выйти из аккаунта</a>
+        </p>
+    </div>
 
 </body>
 </html>

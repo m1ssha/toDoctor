@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                 <label for="specialization">Специализация:</label>
                 <input type="text" class="form-control" id="specialization" name="specialization" required>
             </div>
-            <button type="submit" class="btn btn-primary" name="add_doctor">Добавить врача</button>
+            <button type="submit" class="btn btn-outline-light" name="add_doctor">Добавить врача</button>
         </form>
     </div>
 
@@ -140,12 +140,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                             <td><?php echo $doctor['name']; ?></td>
                             <td><?php echo $doctor['specialization']; ?></td>
                             <td>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
+                            <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
                             </td>
                             <td>
                                 <form method="post" action="">
                                     <input type="hidden" name="doctor_id" value="<?php echo $doctor['id']; ?>">
-                                    <button type="submit" class="btn btn-danger" name="delete_doctor">Удалить</button>
+                                    <button type="submit" class="btn btn-outline-danger" name="delete_doctor">Удалить</button>
                                 </form>
                             </td>
                         </tr>

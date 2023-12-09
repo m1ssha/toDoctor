@@ -109,7 +109,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Записаться к врачу</button>
+                    <button type="submit" class="btn btn-outline-light">Записаться к врачу</button>
                 </form>
             <?php endif; ?>
         <?php else: ?>

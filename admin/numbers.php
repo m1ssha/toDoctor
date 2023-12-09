@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="new_number">Добавить номер:</label>
                 <input type="text" class="form-control" id="new_number" name="new_number" placeholder="Введите номер" required>
             </div>
-            <button type="submit" class="btn btn-primary" name="add_number">Добавить</button>
+            <button type="submit" class="btn btn-outline-light" name="add_number">Добавить</button>
         </form>
     </div>
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td>
                                 <form action="" method="post">
                                     <input type="hidden" name="number_id" value="<?php echo $number['id']; ?>">
-                                    <button type="submit" class="btn btn-danger" name="delete_number">Удалить</button>
+                                    <button type="submit" class="btn btn-outline-danger" name="delete_number">Удалить</button>
                                 </form>
                             </td>
                         </tr>
