@@ -17,7 +17,7 @@ if (!isset($_GET['doctor_id'])) {
 
 $selectedDoctorId = $_GET['doctor_id'];
 
-$doctorInfo = $db->Select("SELECT id, name, specialization FROM doctors WHERE id = :id", [':id' => $selectedDoctorId]);
+$doctorInfo = $db->Select("SELECT * FROM doctors WHERE id = :id", [':id' => $selectedDoctorId]);
 if (empty($doctorInfo)) {
     header('Location: ../error.php');
     exit();
@@ -56,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $numbersData = $db->Select("SELECT * FROM numbers");
-
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -65,6 +64,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Записаться</title>
+    <link rel="icon" href="../src/image/toDoctor.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -73,7 +73,9 @@ $numbersData = $db->Select("SELECT * FROM numbers");
 
 <body class="bg-dark text-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="../index.php">toDoctor</a>
+        <a class="navbar-brand" href="../index.php">
+            <img src="../src/image/navbar-logo.png" alt="" width="133" height="35" class="d-inline-block align-text-top">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -101,7 +103,15 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                     <p>Все места к врачу <strong><?php echo $selectedDoctorName; ?></strong> забронированы, приносим свои извинения</p>
                 </div>
             <?php else: ?>
-                <h2>Выберите свободное место к врачу <?php echo $selectedDoctorName; ?></h2>
+                <div class="mt-4">
+                    <h2><?php echo $selectedDoctorName; ?></h2>
+                    <div style="width: 200px; height: 200px; overflow: hidden; border-radius: 50%;">
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($doctorInfo[0]['image']); ?>" class="img-fluid" alt="<?php echo $selectedDoctorName; ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <p class="lead mt-2"><strong>Специализация:</strong> <?php echo $doctorInfo[0]['specialization'] ?></p>
+                    <p class="lead mt-2"><strong>О себе:</strong> <?php echo $doctorInfo[0]['description']?></p>
+                </div>
+                <h2>Выберите свободное место для записи</h2>
                 <form id="enrollForm" method="post" action="">
                     <div class="form-group">
                         <select class="form-control" id="numberSelect" name="number" required>

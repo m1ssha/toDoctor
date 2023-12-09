@@ -10,7 +10,7 @@ if (!isset($_SESSION['logged-in'])) {
 
 require('../database/database.php');
 
-$user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id",['id' => $_SESSION['telegram_id']]);
+$user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id", ['id' => $_SESSION['telegram_id']]);
 
 if ($user[0]['is_admin'] != 1) {
     header('Location: ../user/profile.php');
@@ -23,9 +23,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_doctor'])) {
     $name = $_POST['name'];
     $specialization = $_POST['specialization'];
 
-    $db->Insert("INSERT INTO `doctors` (`name`, `specialization`) VALUES (:name, :specialization)", [
+    // Проверка наличия файла и его типа
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $allowed_formats = ['image/bmp', 'image/jpeg', 'image/png'];
+        $file_format = mime_content_type($_FILES['image']['tmp_name']);
+
+        if (!in_array($file_format, $allowed_formats)) {
+            header("Location: ../error.php");
+            exit();
+        }
+
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+    } else {
+        $image = null;
+    }
+
+    $db->Insert("INSERT INTO `doctors` (`name`, `specialization`, `image`) VALUES (:name, :specialization, :image)", [
         'name' => $name,
-        'specialization' => $specialization
+        'specialization' => $specialization,
+        'image' => $image
     ]);
 
     header('Location: doctors.php');
@@ -45,10 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
     $doctorId = $_POST['doctor_id'];
     $editName = $_POST['edit_name'];
     $editSpecialization = $_POST['edit_specialization'];
+    $editImage = isset($_FILES['edit_image']) ? file_get_contents($_FILES['edit_image']['tmp_name']) : null;
 
-    $db->Update("UPDATE `doctors` SET `name` = :name, `specialization` = :specialization WHERE `id` = :id", [
+    $db->Update("UPDATE `doctors` SET `name` = :name, `specialization` = :specialization, `image` = :image WHERE `id` = :id", [
         'name' => $editName,
         'specialization' => $editSpecialization,
+        'image' => $editImage,
         'id' => $doctorId
     ]);
 
@@ -110,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
     </div>
 
     <div class="container bg-dark text-light">
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Имя врача:</label>
                 <input type="text" class="form-control" id="name" name="name" required>
@@ -118,6 +136,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
             <div class="form-group">
                 <label for="specialization">Специализация:</label>
                 <input type="text" class="form-control" id="specialization" name="specialization" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Фотография:</label>
+                <input type="file" class="form-control" id="image" name="image">
             </div>
             <button type="submit" class="btn btn-outline-light" name="add_doctor">Добавить врача</button>
         </form>
@@ -129,7 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
             <table class="table table-dark table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Врач</th>
                         <th scope="col">Специализация</th>
                         <th scope="col">Редактировать</th>
@@ -139,11 +160,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                 <tbody>
                     <?php foreach ($doctors as $doctor) : ?>
                         <tr>
-                            <th scope="row"><?php echo $doctor['id']; ?></th>
                             <td><?php echo $doctor['name']; ?></td>
                             <td><?php echo $doctor['specialization']; ?></td>
                             <td>
-                            <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
+                                <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#editModal<?php echo $doctor['id']; ?>">Редактировать</button>
                             </td>
                             <td>
                                 <form method="post" action="">
@@ -162,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                                         </button>
                                     </div>
                                     <div class="modal-body bg-dark text-light">
-                                        <form method="post" action="">
+                                        <form method="post" action="" enctype="multipart/form-data">
                                             <input type="hidden" name="doctor_id" value="<?php echo $doctor['id']; ?>">
                                             <div class="form-group">
                                                 <label for="edit_name">Имя врача:</label>
@@ -171,6 +191,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_doctor'])) {
                                             <div class="form-group">
                                                 <label for="edit_specialization">Специализация:</label>
                                                 <input type="text" class="form-control" id="edit_specialization" name="edit_specialization" value="<?php echo $doctor['specialization']; ?>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="edit_image">Фотография:</label>
+                                                <input type="file" class="form-control" id="edit_image" name="edit_image">
                                             </div>
                                             <button type="submit" class="btn btn-primary" name="edit_doctor">Сохранить изменения</button>
                                         </form>
