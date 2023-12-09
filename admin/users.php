@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
     </div>
 
     <div class="container mt-1 bg-dark text-light">
-        <h2>Все пользователи</h2>
+        <h1>Все пользователи</h1>
         <?php if (!empty($users)) : ?>
             <table class="table table-dark table-striped table-hover table-borderless table-sm table-hover">
                 <thead>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteUser'])) {
                         <th scope="col">#</th>
                         <th scope="col">Telegram ID</th>
                         <th scope="col">Имя пользователя</th>
-                        <th scope="col">Админ</th>
+                        <th scope="col">Администратор</th>
                         <th scope="col">Удалить</th>
                     </tr>
                 </thead>

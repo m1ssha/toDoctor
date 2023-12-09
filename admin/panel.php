@@ -67,10 +67,10 @@ $firstName = $user[0]['first_name'];
             <h1>Панель администратора</h1>
             <p class="lead">Добро пожаловать, <strong><?php echo $firstName; ?></strong>!</p>
             <p class="lead">
-                <a class="btn btn-light btn-lg" href="users.php">Пользователи</a>
-                <a class="btn btn-light btn-lg" href="doctors.php">Врачи</a>
-                <a class="btn btn-light btn-lg" href="enrolls.php">Записи</a>
-                <a class="btn btn-light btn-lg" href="numbers.php">Номера</a>
+                <a class="btn btn-outline-light" href="users.php">Пользователи</a>
+                <a class="btn btn-outline-light" href="doctors.php">Врачи</a>
+                <a class="btn btn-outline-light" href="enrolls.php">Записи</a>
+                <a class="btn btn-outline-light" href="numbers.php">Номера</a>
             </p>
         </div>
     </div>
