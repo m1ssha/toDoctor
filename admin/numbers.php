@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <li class="nav-item">
                         <a class="nav-link" href="../enroll/doctors.php">Записаться</a>
                     </li>
-                    <li class="nav-item active active">
-                        <a class="nav-link" href="../admin/panel.php">Панель администрирования</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../admin/panel.php">Панель администрирования</a>
                     </li>
                 </ul>
             </div>
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="new_number">Добавить номер:</label>
                 <input type="text" class="form-control" id="new_number" name="new_number" placeholder="Введите номер" required>
             </div>
-            <button type="submit" class="btn btn-outline-light" name="add_number">Добавить</button>
+            <button type="submit" class="btn btn-outline-light mt-2" name="add_number">Добавить</button>
         </form>
     </div>
 

@@ -66,8 +66,6 @@ $numbersData = $db->Select("SELECT * FROM numbers");
     <title>Записаться</title>
     <link rel="icon" href="../src/image/toDoctor.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
@@ -89,7 +87,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
                         <a class="nav-link" href="../user/profile.php">Профиль</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" href="">Записаться</a>
+                        <a class="nav-link active" href="doctors.php">Записаться</a>
                     </li>
                 </ul>
             </div>
@@ -97,7 +95,7 @@ $numbersData = $db->Select("SELECT * FROM numbers");
     </div>
 
     <div class="container mt-2">
-        <a href="doctors.php">Вернуться</a>
+        <a class="btn btn-outline-light" href="doctors.php">Вернуться</a>
         <?php if (!empty($selectedDoctorName)): ?>
             <?php if (empty($availableSeatNumbers)): ?>
                 <div class="container mt-2">
