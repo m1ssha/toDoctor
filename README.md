@@ -60,4 +60,4 @@
 # Диаграммы
 ![Изображение](https://github.com/m1ssha/toDoctor/blob/main/github-images/database.png?raw=true)
 # Документация
-[Документация](https://github.com/m1ssha/toDoctor/blob/main/openapi.yaml)
+[**Документация**](https://github.com/m1ssha/toDoctor/blob/main/openapi.yaml)
