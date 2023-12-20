@@ -41,10 +41,10 @@ define('BOT_USERNAME', $BOT_USERNAME);
                         <a class="nav-link" href="../index.php">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/profile.php">Профиль</a>
+                        <a class="nav-link active" href="../user/profile.php">Профиль</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="enroll/doctors.php">Записаться</a>
+                        <a class="nav-link" href="../enroll/doctors.php">Записаться</a>
                     </li>
                 </ul>
             </div>
