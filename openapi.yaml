@@ -304,7 +304,7 @@ paths:
       operationId: getAllNumbers
       responses:
         '200':
-          description: successfull operation
+          description: successful operation
           content:
             application/json:
               schema:
