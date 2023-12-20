@@ -10,13 +10,9 @@ if (!isset($_SESSION['logged-in'])) {
 require('../database/database.php');
 $user = $db->Select("SELECT * FROM `users` WHERE `telegram_id` = :id",['id' => $_SESSION['telegram_id']]);
 
-$firstName = $user[0]['first_name'];
 $telegramID = $user[0]['telegram_id'];
-$telegramUsername = $user[0]['telegram_username'];
-$userpic = $user[0]['profile_picture'];
-$userID = $user[0]['id'];
+$firstName = $user[0]['first_name'];
 $isAdmin = ($user[0]['is_admin'] == 1);
-
 
 $enrolls = $db->Select("SELECT * FROM enrolls WHERE user_id = :user_id", ['user_id' => $telegramID]);
 
