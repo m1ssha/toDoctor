@@ -61,3 +61,5 @@
 ![Изображение](https://github.com/m1ssha/toDoctor/blob/main/github-images/database.png?raw=true)
 # Документация
 [**Документация**](https://github.com/m1ssha/toDoctor/blob/main/openapi.yaml)
+# Развёртывание
+Для развёртывания у себя или  на сервере в директории /var/www/html в терминале пропишите git clone https://github.com/m1ssha/toDoctor.git. В phpmyadmin импортируйте дамп базы данных. Настройте в database/config.php необходимые параметры. Для авторизации через Telegram создайте у @BotFather бота и укажите /setdomain с вашим доменом.
