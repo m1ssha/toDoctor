@@ -59,3 +59,5 @@
 ![Изображение](https://github.com/m1ssha/toDoctor/blob/main/github-images/pages.jpg?raw=true)
 # Диаграммы
 ![Изображение](https://github.com/m1ssha/toDoctor/blob/main/github-images/database.png?raw=true)
+# Документация
+[Документация](https://github.com/m1ssha/toDoctor/blob/main/openapi.yaml)
