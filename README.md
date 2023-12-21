@@ -1,9 +1,9 @@
 # toDoctor — сервис для записи к врачу
 ## Краткое описание информационной системы
-Цель данного проекта - создание системы записи к врачу для оптимизации и упрощения процесса записи на прием. Система будет предоставлять пользователям удобный интерфейс для записи к врачу, отмены записи и просмотра истории своих предыдущих записей. Дополнительно, предусмотрена система авторизации через мессенджер Telegram для повышения безопасности и удобства пользования.
+toDoctor будет использоваться в роли системы записи к врачу в определённой больнице. Пользователь сможет быстро, без сложной процедуры регистрации (авторизация будет производиться через Telegram, это занимает куда меньше времени) записаться к интересующему его специалисту.
 # Техническое задание
 ### 1. Обзор проекта:
-Цель данного проекта - создание системы записи к врачу для оптимизации и упрощения процесса записи на прием. Система будет предоставлять пользователям удобный интерфейс для записи к врачу, отмены записи и просмотра истории своих предыдущих записей. Дополнительно, предусмотрена система авторизации через мессенджер Telegram для повышения безопасности и удобства пользования.
+Цель данного проекта — создание системы записи к врачу для оптимизации и упрощения процесса записи на прием. Система будет предоставлять пользователям удобный интерфейс для записи к врачу, отмены записи и просмотра истории своих предыдущих записей. Дополнительно, предусмотрена система авторизации через мессенджер Telegram для повышения безопасности и удобства пользования.
 ### 2. Функциональные требования:
 2.1. **Система авторизации:**
    - Реализация авторизации пользователей через мессенджер Telegram.
@@ -56,10 +56,138 @@
 + **Номера** — отображение всех номеров к врачу. Администратору доступна возможность добавить новый номерок или удалить ненужный.
 
 # Интерфейс
-![Изображение](https://github.com/m1ssha/toDoctor/blob/main/github-images/pages.jpg?raw=true)
+![index](https://github.com/m1ssha/toDoctor/blob/main/github-images/index.jpg?raw=true)
+![profile](https://github.com/m1ssha/toDoctor/blob/main/github-images/profile.jpg?raw=true)
+![doctors](https://github.com/m1ssha/toDoctor/blob/main/github-images/doctors.jpg?raw=true)
+![panel](https://github.com/m1ssha/toDoctor/blob/main/github-images/panel.jpg?raw=true)
+![admin-panel-page](https://github.com/m1ssha/toDoctor/blob/main/github-images/admin-panel-page.jpg?raw=true)
 # Диаграммы
 ![Изображение](https://github.com/m1ssha/toDoctor/blob/main/github-images/database.png?raw=true)
 # Документация
-[**Документация**](https://github.com/m1ssha/toDoctor/blob/main/openapi.yaml)
+Пример OpenAPI
+```
+openapi: 3.0.0
+info:
+  title: toDoctor API
+  description: toDoctor API in Swagger
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.0
+servers:
+  - url: http://127.0.0.1/
+tags:
+  - name: auth
+    description: Авторизация
+  - name: user
+    description: Пользователь
+  - name: doctors
+    description: Врачи
+  - name: admin
+    description: админ-панель
+paths:
+  /auth/logic/auth:
+    post:
+      tags:
+        - auth
+      summary: Авторизация пользователя через Telegram
+      description: Создание пользователя в базе данных с данными из Telegram
+      operationId: authUser
+      requestBody:
+        description: Add user to system
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/auth'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auth'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/auth'
+        '400':
+          description: bad request
+  /auth/logic/logout:
+    get:
+      summary: Выход пользователя из аккаунта
+      operationId: userLogout
+      responses:
+        default:
+          description: success
+      tags:
+        - auth
+  /user/profile/:
+    get:
+      tags:
+        - user
+      summary: Получение данных о пользователе
+      description: Рендер пользовательского профиля
+      operationId: getUserInfo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: access denied
+    delete:
+      tags:
+        - user
+      summary: Удаление записи к врачу
+      responses:
+        '200':
+          description: successful operation
+```
+Используемые API методы:
+```
+AUTH:
+GET /auth/logic/logout - выход из аккаунта
+POST /auth/logic/auth - создание данных пользователя
+PUT /auth/logic/auth - обновление данных пользователя
+USER:
+GET /user/profile - получение данных профиля
+GET /user/enrolls - получение данных о записях к врачу
+DELETE /user/enrolls - удаление записи к врачу
+DOCTORS:
+GET /enroll/doctors - получение данных о доступных специалистах
+GET /enroll/enroll - получение данных о конкретном специалисте
+POST /enroll/enroll - запись к врачу
+ADMIN:
+GET /admin/users - получение данных всех пользователей
+GET /admin/doctors - получение данных всех врачей
+GET /admin/numbers - получение данных всех номеров
+GET /admin/enrolls - получение данных всех записей
+PUT /admin/doctors/{doctor_id} - обновление данных конкретного врача
+PUT /admin/users/{user_id} - обновление прав пользователя (назначение и снятие админ-прав)
+DELETE /admin/users/{user_id} - удаление пользователя из системы
+DELETE /admin/doctors/{doctor_id} - удаление врача из системы
+DELETE /admin/enrolls/{enroll_id} - удаление записи из системы
+```
+Полная документация находится по ссылке: **<https://github.com/m1ssha/toDoctor/blob/main/openapi.yaml>**
 # Развёртывание
-Для развёртывания у себя или  на сервере в директории /var/www/html в терминале пропишите git clone https://github.com/m1ssha/toDoctor.git. В phpmyadmin импортируйте дамп базы данных. Настройте в database/config.php необходимые параметры. Для авторизации через Telegram создайте у @BotFather бота и укажите /setdomain с вашим доменом.
+Чтобы установить приложение на своем сервере или локальной машине в директории /var/www/html, выполните следующие шаги в терминале:
+1. Склонируйте репозиторий с помощью команды:
+   ```
+   git clone https://github.com/m1ssha/toDoctor.git
+   ```
+2. Импортируйте дамп базы данных через phpMyAdmin.
+3. Настройте необходимые параметры в файле database/config.php.
+4. Для использования авторизации через Telegram создайте бота с помощью @BotFather и укажите домен вашего сервера (это может быть домен или IP) с помощью команды /setdomain.
+
+# Скрины проекта
+![Главная страница](https://i.imgur.com/oSedRt9.jpg)
+![Авторизация](https://i.imgur.com/OLdB2cl.jpg)
+# Выводы
+В ходе курсовой работы будет разработано Web-приложение для записи к врачу. Документация, охватывающая методы API и развертывание, служит основой для Backend и Frontend. Проект сфокусирован на создании эффективного, надежного и удобного приложения.
